@@ -4,11 +4,11 @@ from .forms import ClienteForm
 
 def lista_clientes(request):
     clientes = Cliente.objects.all()
-    return render(request, 'lista_clientes.html', {'clientes': clientes})
+    return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
 def detalle_cliente(request, id):
-    cliente = get_object_or_404(Cliente, pk=id)
-    return render(request, 'detalle_cliente.html', {'cliente': cliente})
+    cliente = get_object_or_404(Cliente, id=id)
+    return render(request, 'clientes/detalle_cliente.html', {'cliente': cliente})
 
 def nuevo_cliente(request):
     if request.method == 'POST':
@@ -18,25 +18,26 @@ def nuevo_cliente(request):
             return redirect('lista_clientes')
     else:
         form = ClienteForm()
-    return render(request, 'nuevo_cliente.html', {'form': form})
+    return render(request, 'clientes/formulario_cliente.html', {'form': form, 'titulo': 'Nuevo cliente'})
 
 def editar_cliente(request, id):
-    cliente = get_object_or_404(Cliente, pk=id)
+    cliente = get_object_or_404(Cliente, id=id)
     if request.method == 'POST':
         form = ClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
-            return redirect('detalle_cliente', id=cliente.id)
+            return redirect('lista_clientes')
     else:
         form = ClienteForm(instance=cliente)
-    return render(request, 'editar_cliente.html', {'form': form})
+    return render(request, 'clientes/formulario_cliente.html', {'form': form, 'titulo': 'Editar cliente'})
 
 def eliminar_cliente(request, id):
-    cliente = get_object_or_404(Cliente, pk=id)
+    cliente = get_object_or_404(Cliente, id=id)
     if request.method == 'POST':
         cliente.delete()
         return redirect('lista_clientes')
-    return render(request, 'eliminar_cliente.html', {'cliente': cliente})
+    return render(request, 'clientes/confirmar_eliminacion_cliente.html', {'cliente': cliente})
+
 
 
 
