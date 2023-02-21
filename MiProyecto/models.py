@@ -26,3 +26,9 @@ class Orden(models.Model):
 
     def __str__(self):
         return f'Orden #{self.pk} de {self.cliente.nombre}'
+
+class DetalleOrden(models.Model):
+    orden = models.ForeignKey('Orden', on_delete=models.CASCADE)
+    producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+    precio_unitario = models.DecimalField(max_digits=6, decimal_places=2)
