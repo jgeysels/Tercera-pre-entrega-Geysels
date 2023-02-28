@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Buscar{% endblock %}
+
+{% block content %}
+    <h1>Buscar</h1>
+    <form method="get">
+        <input type="text" name="query" placeholder="Buscar">
+        <button type="submit">Buscar</button>
+    </form>
+    <h2>Resultados</h2>
+    <ul>
+        {% for cliente in clientes %}
+            <li>{{ cliente.nombre }} {{ cliente.apellido }}</li>
+        {% empty %}
+            <li>No se encontraron clientes</li>
+        {% endfor %}
+        {% for producto in productos %}
+            <li>{{ producto.nombre }}</li>
+        {% empty %}
+            <li>No se encontraron productos</li>
+        {% endfor %}
+        {% for orden in ordenes %}
+            <li>{{ orden }}</li>
+        {% empty %}
+            <li>No se encontraron órdenes</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

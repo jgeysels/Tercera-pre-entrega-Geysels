@@ -1,44 +1,44 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Cliente
+from django.shortcuts import render, redirect
+from .models import Cliente, Producto, Orden
 from .forms import ClienteForm
 
-def lista_clientes(request):
-    clientes = Cliente.objects.all()
-    return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
-def detalle_cliente(request, id):
-    cliente = get_object_or_404(Cliente, id=id)
-    return render(request, 'clientes/detalle_cliente.html', {'cliente': cliente})
-
-def nuevo_cliente(request):
+def agregar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_clientes')
+            return redirect('index')
     else:
         form = ClienteForm()
-    return render(request, 'clientes/formulario_cliente.html', {'form': form, 'titulo': 'Nuevo cliente'})
+    return render(request, 'agregar_cliente.html', {'form': form})
 
-def editar_cliente(request, id):
-    cliente = get_object_or_404(Cliente, id=id)
-    if request.method == 'POST':
-        form = ClienteForm(request.POST, instance=cliente)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_clientes')
+def buscar(request):
+    if 'query' in request.GET:
+        query = request.GET['query']
+        clientes = Cliente.objects.filter(nombre__icontains=query)
+        productos = Producto.objects.filter(nombre__icontains=query)
+        ordenes = Orden.objects.filter(cliente__nombre__icontains=query)
     else:
-        form = ClienteForm(instance=cliente)
-    return render(request, 'clientes/formulario_cliente.html', {'form': form, 'titulo': 'Editar cliente'})
+        clientes = []
+        productos = []
+        ordenes = []
+    return render(request, 'buscar.html', {'clientes': clientes, 'productos': productos, 'ordenes': ordenes})
 
-def eliminar_cliente(request, id):
-    cliente = get_object_or_404(Cliente, id=id)
-    if request.method == 'POST':
-        cliente.delete()
-        return redirect('lista_clientes')
-    return render(request, 'clientes/confirmar_eliminacion_cliente.html', {'cliente': cliente})
+def lista_clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'lista_clientes.html', {'clientes': clientes})
 
+def lista_productos(request):
+    productos = Producto.objects.all()
+    return render(request, 'lista_productos.html', {'productos': productos})
 
+def lista_ordenes(request):
+    ordenes = Orden.objects.all()
+    return render(request, 'lista_ordenes.html', {'ordenes': ordenes})
+
+def index(request):
+    return render(request, 'index.html')
 
 
 

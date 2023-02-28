@@ -4,7 +4,7 @@ from .models import Cliente
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = ['nombre', 'apellido', 'correo_electronico', 'telefono', 'direccion']
+        fields = ['nombre', 'apellido', 'correo_electronico','direccion', 'telefono']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,3 +21,11 @@ class ClienteForm(forms.ModelForm):
         if '@' not in correo_electronico:
             raise forms.ValidationError('Ingrese un correo electrónico válido.')
         return correo_electronico
+
+    def clean_telefono(self):
+        telefono = self.cleaned_data.get('telefono')
+        if not telefono:
+            raise forms.ValidationError('Este campo es requerido.')
+        if len(telefono) < 8:
+            raise forms.ValidationError('Ingrese un número de teléfono válido.')
+        return telefono

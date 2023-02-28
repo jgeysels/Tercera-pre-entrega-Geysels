@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>{% block titulo %} {% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  <header>
-    <h1>Mi sitio web</h1>
     <nav>
-      <ul>
-        <li><a href="{% url 'lista_clientes' %}">Clientes</a></li>
-      </ul>
+        <ul>
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="{% url 'agregar_cliente' %}">Agregar Cliente</a></li>
+            <li><a href="{% url 'lista_clientes' %}">Lista de Clientes</a></li>
+            <li><a href="{% url 'lista_productos' %}">Lista de Productos</a></li>
+            <li><a href="{% url 'lista_ordenes' %}">Lista de Órdenes</a></li>
+            <li><a href="{% url 'buscar' %}">Buscar</a></li>
+        </ul>
     </nav>
-  </header>
-
-  <main>
-    {% block content %}{% endblock %}
-  </main>
-
-  <footer>
-    <p>Derechos reservados 2023</p>
-  </footer>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>
