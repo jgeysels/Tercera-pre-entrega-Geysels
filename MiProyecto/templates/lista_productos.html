@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Lista de productos</h1>
+  {% if productos %}
+    <ul>
+      {% for producto in productos %}
+        <li>{{ producto.nombre }} - {{ producto.descripcion }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay productos disponibles</p>
+  {% endif %}
+{% endblock %}

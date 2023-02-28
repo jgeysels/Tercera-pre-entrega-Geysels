@@ -29,8 +29,20 @@ def lista_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'lista_clientes.html', {'clientes': clientes})
 
-def lista_productos(request):
+'''def lista_productos(request):
     productos = Producto.objects.all()
+    return render(request, 'lista_productos.html', {'productos': productos})'''
+def lista_productos(request):
+    # Crea algunos objetos de prueba
+    Producto.objects.create(nombre='Producto 1', descripcion='Descripción del producto 1', precio=10.99)
+    Producto.objects.create(nombre='Producto 2', descripcion='Descripción del producto 2', precio=15.99)
+    Producto.objects.create(nombre='Producto 3', descripcion='Descripción del producto 3', precio=20.99)
+
+    # Obtener todos los productos
+    productos = Producto.objects.all()
+    for producto in productos:
+        if not isinstance(producto.precio, (float, int)):
+            producto.precio = float(producto.precio)
     return render(request, 'lista_productos.html', {'productos': productos})
 
 def lista_ordenes(request):

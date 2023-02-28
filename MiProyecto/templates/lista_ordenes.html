@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lista de Ordenes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for orden in ordenes %}
+    <tr>
+      <td>{{ orden.id }}</td>
+      <td>{{ orden.fecha }}</td>
+      <td>{{ orden.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
