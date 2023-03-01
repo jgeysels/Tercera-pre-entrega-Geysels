@@ -10,3 +10,6 @@ El archivo models.py define la estructura de la base de datos de la aplicación,
 El archivo forms.py define un formulario para la creación de clientes, utilizando el modelo Cliente. El formulario asegura que los campos necesarios (nombre, apellido, correo electrónico, teléfono y dirección) estén presentes y que el correo electrónico tenga un formato válido.
 
 
+*La ultima version es la version 3.0.Aunque la versión anterior tenía más funcionalidades, también tenía algunos errores que podrían impedir que el código del proyecto funcionara correctamente. Por lo tanto, he decidido hacer algunos cambios para asegurarme de que la nueva versión sea más confiable y robusta.
+
+Aunque la nueva versión puede ser más simple en términos de funcionalidad,el código corre perfectamente.
